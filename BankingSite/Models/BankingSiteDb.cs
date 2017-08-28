@@ -6,7 +6,7 @@ namespace BankingSite.Models
     {
         public BankingSitedDb() : base("name=CustomConnectionAutomatedTestingProject")
         {
-        }        
+        }       // 
 
         public DbSet<LoanApplication> LoanApplications { get; set; }        
     }
