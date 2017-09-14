@@ -4,19 +4,23 @@ using NUnit.Framework;
 
 namespace BankingSite.UnitTests
 {
-    //LD STEP4
+
     [TestFixture]
     public class LoanApplicationScorerTests
     {
+        //LD STEP4
         [Test]
         public void ShouldDeclineWhenTooYoung()
         {
+            //LD we mok the interface
             var fakeCreditHistoryChecker = new Mock<ICreditHistoryChecker>();            
 
+            //LD we mock the method of the interface
             fakeCreditHistoryChecker.Setup(
                 x => x.CheckCreditHistory(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(true);
 
+            //LD we create an instance of the class to test passing the mok of the object it gets in input
             var sut = new LoanApplicationScorer(fakeCreditHistoryChecker.Object);
 
             var application = new LoanApplication

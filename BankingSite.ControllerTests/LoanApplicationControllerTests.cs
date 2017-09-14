@@ -13,7 +13,7 @@ namespace BankingSite.ControllerTests
         [Test]
         public void ShouldRenderDefaultView()
         {
-            //LD we need to create some fuck instances by "moq" to pass in input to the controller
+            //LD we need to create some fuck instances by "mock" to pass in input to the controller
             var fakerepository = new Mock<IRepository>();
             var fakeLoanApplicationScorer = new Mock<ILoanApplicationScorer>();
 
@@ -41,6 +41,8 @@ namespace BankingSite.ControllerTests
                 IsAccepted = true
             };
 
+            //Here we verify that when we call the action "Apply" giving a "Loan Application" where "Is Accepted"
+            // is true, the redirect is to the "Accepted" view.
             sut.WithCallTo(x => x.Apply(acceptedApplication)).ShouldRedirectTo<int>(x => x.Accepted);
         }
 
