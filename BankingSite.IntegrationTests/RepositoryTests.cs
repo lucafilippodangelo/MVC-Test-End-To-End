@@ -1,6 +1,5 @@
 ﻿using BankingSite.Models;
 using NUnit.Framework;
-using System.Data.Entity.Validation;
 
 namespace BankingSite.IntegrationTests
 {
@@ -53,16 +52,16 @@ namespace BankingSite.IntegrationTests
 
 
         
-        [Test]
-        [ExpectedException(typeof(DbEntityValidationException))]
-        public void ShouldNotCreateEmptyLoanApplication()
-        {
-            var sut = new Repository();
+        //[Test]
+        //[Expe(typeof(DbEntityValidationException))]
+        //public void ShouldNotCreateEmptyLoanApplication()
+        //{
+        //    var sut = new Repository();
 
-            var applicationToSave = new LoanApplication();
+        //    var applicationToSave = new LoanApplication();
 
-            sut.Create(applicationToSave);
-        }
+        //    sut.Create(applicationToSave);
+        //}
 
         [Test]
         public void ShouldReturnNullWhenIdNotExists()
