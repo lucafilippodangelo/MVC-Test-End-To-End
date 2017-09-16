@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSite", "BankingSite\BankingSite.csproj", "{9FDF1EA9-5F3F-4A0F-8AC5-D8BC5E9468DB}"
 EndProject
@@ -20,8 +20,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSite.ControllerTests", "BankingSite.ControllerTests\BankingSite.ControllerTests.csproj", "{D7210486-C373-4414-84B0-B482BDDD3C12}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSite.ViewTests", "BankingSite.ViewTests\BankingSite.ViewTests.csproj", "{F9E36E0C-35E7-48CB-89A7-505A4C3A709D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSite.FunctionalUITests", "BankingSite.FunctionalUITests\BankingSite.FunctionalUITests.csproj", "{C562BA64-48FF-4D2E-85FB-082854CCF8FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +47,6 @@ Global
 		{F9E36E0C-35E7-48CB-89A7-505A4C3A709D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9E36E0C-35E7-48CB-89A7-505A4C3A709D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9E36E0C-35E7-48CB-89A7-505A4C3A709D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C562BA64-48FF-4D2E-85FB-082854CCF8FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C562BA64-48FF-4D2E-85FB-082854CCF8FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C562BA64-48FF-4D2E-85FB-082854CCF8FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C562BA64-48FF-4D2E-85FB-082854CCF8FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
