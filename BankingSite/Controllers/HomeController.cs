@@ -1,5 +1,5 @@
-﻿using System.Web.Mvc;
-using BankingSite.Models;
+﻿using BankingSite.Models;
+using System.Web.Mvc;
 
 namespace BankingSite.Controllers
 {
@@ -9,7 +9,7 @@ namespace BankingSite.Controllers
         {
             ViewBag.Message = "Apply today for our award winning personal loans.";
 
-            // Hard-coded rates for demo purposes
+            // Hard-coded rates for demo purposes 
             var rates = new InterestRates
                         {
                             CreditCardRate = 22.33m,
