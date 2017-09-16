@@ -51,8 +51,10 @@ namespace BankingSite.IntegrationTests
         }
 
 
+
+        
         [Test]
-        //[ExpectedException(typeof(DbEntityValidationException))]
+        [ExpectedException(typeof(DbEntityValidationException))]
         public void ShouldNotCreateEmptyLoanApplication()
         {
             var sut = new Repository();
