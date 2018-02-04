@@ -101,45 +101,40 @@ In this test project I used "NUnit" + "moq", below a summary of main topics
 
 
 ## Running Tests on TeamCity Continuous Integration Server
-==========================================================
 
--------------------------------------------------------------------------------------------------
-CONTINUOUS INTEGRATION
--------------------------------------------------------------------------------------------------
-it's a dedicated server that build together all the code changes from different delelopers and run the tests in the build.
+**Continuous Integration**
+
+Definition: dedicated server that build together all the code changes from different delelopers and run the tests in the build.
+
 So the steps are:
 - Compiles?
 - Tests Pass?
 - Code Metrics(for instance: unit tests coverage)
 - Feedback to the team
 
-At the end we will find bugs sooner.
+Smart way to find bugs sooner
 
--------------------------------------------------------------------------------------------------
-TEAMCITY
--------------------------------------------------------------------------------------------------
+**TEAMCITY**
+
 it works with "C#"+"MSBuild"+"NUnit"+ Nuget code coverage tool
 
 The parts we have to have are:
-- "**Source Control**" local or git
-- dedicated "Teamcity Server" to run the team city service. 
+ - "Source Control" local or git
+ - dedicated "Teamcity Server" to run the team city service. 
+
 This service has to be connected with the "Source Control" and get the code.
-- the "**Team City Build Agent**" make the build
+ - the "Team City Build Agent" make the build
+ - the Structure of TeamCity is:
 
-the **Structure** of TeamCity is:
+      1 - project(BankingSite Project)
+        - A PROJECT HAS MANY -> 
+      2 - Build Configuration(Unit Test) ->  Build Configuration(Integration Test)
+        - EACH BUILD CONFIGURATION HAS MANY TEST STEP -> 
+      3 - Step()
 
-      project(BankingSite Project)
-            A PROJECT HAS MANY -> 
-      Build Configuration(Unit Test) ->  Build Configuration(Integration Test)
-            EACH BUILD CONFIGURATION HAS MANY TEST STEP -> 
-      Step()
+**Build PIPELINES**
 
--------------------------------------------------------------------------------------------------
-Build PIPELINES
--------------------------------------------------------------------------------------------------
-DEFINITION: series of phases we want to happen when we check code.
-
-our pipeline in TeamCity will be:
+Definition: series of phases I want to happen when I check in code. My pipeline in TeamCity will be:
 
       project(BankingSite Project)
             A PROJECT HAS MANY phases of"Build configuration" -> 
@@ -151,35 +146,29 @@ our pipeline in TeamCity will be:
                   EACH BUILD CONFIGURATION HAS MANY TEST STEP -> 
                   Integration Test
 
--------------------------------------------------------------------------------------------------
-TEAMCITY SETUP - (phase one) CREATE TRIGGER TO MAKE A BUILD ONCE CODE COMMITTED
-https://app.pluralsight.com/player?course=automated-aspdotnet-mvc&author=jason-roberts&name=automated-aspdotnet-mvc-m6&clip=5&mode=live
--------------------------------------------------------------------------------------------------
+
+**TEAMCITY SETUP - (phase one) CREATE TRIGGER TO MAKE A BUILD ONCE CODE COMMITTED**
+
 1 - create the **project** in teamcity. 
 
-2 - Under the project we have to configure the **build configuration**. in this case I created the build configuration -> "Build Solution + Execute Unit Tests"
+2 - Under the project I have to configure the "build configuration". in this case I created the build configuration -> "Build Solution + Execute Unit Tests"
 
-3 - Then on the left menu I have to click in "version Control Settings" inside the build configuration -> "Build Solution After Code Committed (phase one)", I have to specify the "**Version Control Settings**", in this case I added one from GIT by using the url "https://github.com/lucafilippodangelo/MVC-Test-End-To-End"
-So now we can get our source code.
+3 - Then on the left menu I have to click in "version Control Settings" inside the build configuration -> "Build Solution After Code Committed (phase one)", I have to specify the "Version Control Settings", in this case I added one from GIT by using the url "https://github.com/lucafilippodangelo/MVC-Testing-End-To-End"
+So now I can get our source code.
 
-4 - MIN 3:00. Then we have to add a STEP, on the left menu of this "phase one" click on "**Build Steps**". Here we have to specify the solution we want build, in this case "BankingSite.sln"
+4 - Then I have to add a STEP, on the left menu of this "phase one" click on "Build Steps". Here I have to specify the solution I want build, in this case "BankingSite.sln"
 
-4 - MIN 4:40.  Then we have to AUTOMATIZE,  on the left menu for the "phase one" we click on **triggers** in order to execute the build automatically without click on the RUN button.
+4 - Then I have to automatize,  on the left menu for the "phase one" I click on **triggers** in order to execute the build automatically without click on the RUN button.
 
--------------------------------------------------------------------------------------------------
-TEAMCITY SETUP - (phase two) EXECUTE UNIT TESTS
-https://app.pluralsight.com/player?course=automated-aspdotnet-mvc&author=jason-roberts&name=automated-aspdotnet-mvc-m6&clip=6&mode=live
+**TEAMCITY SETUP - (phase two) EXECUTE UNIT TESTS**
 
-https://app.pluralsight.com/player?course=automated-aspdotnet-mvc&author=jason-roberts&name=automated-aspdotnet-mvc-m6&clip=7&mode=live
--------------------------------------------------------------------------------------------------
-we will create a new build configuration under the same project
-**there are images attached abiut the configuration**
+- I will create a new build configuration under the same project "there are images attached abiut the configuration"
 
-+ we have to add a step for unit tests, remember that if I WANT RUN A BUILD AFTER THAT THE PREVIOUS IS FINICHED, I have to set in the left menu the **dependencies** -> "Add new snapshot dependency"
+- I have to add a step for unit tests, remember that if I WANT RUN A BUILD AFTER THAT THE PREVIOUS IS FINICHED, I have to set in the left menu the "dependencies" -> "Add new snapshot dependency"
 
-+ after I add a **trigger** -> "finish build trigger" -> and as build we specify the "phase one" 
+- after I add a "trigger" -> "finish build trigger" -> and as build I specify the "phase one" 
 
-+ so now if "phase one" run successfully, then "phase two" is trigged
+- so now if "phase one" run successfully, then "phase two" is trigged
 
 
 
