@@ -44,16 +44,14 @@ In this test project I used "NUnit" + "moq", below a summary of main topics
 - DbContext.cs
        
        ```
-
       public class BankingSitedDb : DbContext
       {
         public BankingSitedDb() : base("name=CustomConnectionAutomatedTestingProject") {  }        
 
         public DbSet<LoanApplication> LoanApplications { get; set; }        
       }
-
       ```
-      
+
 CONNECTION STRING
 
       <add name="CustomConnectionAutomatedTestingProject" connectionString="Data Source=LUCA; Initial Catalog=DbAutomatedTestingProject; Integrated Security=False;User ID=sa;Password=Luca111q;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" providerName="System.Data.SqlClient" />
