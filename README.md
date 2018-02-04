@@ -1,4 +1,4 @@
-# MVC-Test-End-To-End
+# MVC Unit and Integration Test Project (NUnit, moq, Teamcity) 
 
 In this test project I used "NUnit" + "moq", below a summary of main topics
 
@@ -171,10 +171,3 @@ So now I can get our source code.
 - so now if "phase one" run successfully, then "phase two" is trigged
 
 
-
-
-
-
-
-
-## Some Sweet Theory 
