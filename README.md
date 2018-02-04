@@ -25,12 +25,11 @@ In this test project I used "NUnit" + "moq", below a summary of main topics
 
 **The automated test pyramid**
 
-@ (top: fewer test, longer execution(maybe based on web services), brittle because based on UI element, Automating the user interface(hitting buttons) )
-@@
-@@@
-@@@@ (middle: involve multiple less related classes, may include databases, files)
-@@@@@
-@@@@@@ (bottom: more test, more stable, shorter execution time. UNIT, usually single class, deep, isolated, focused, test all the valid inputs(NUnit TestCases))
+- top: fewer test, longer execution(maybe based on web services), brittle because based on UI element, Automating the user interface(hitting buttons) 
+
+- middle: involve multiple less related classes, may include databases, files
+
+- bottom: more test, more stable, shorter execution time. UNIT, usually single class, deep, isolated, focused, test all the valid inputs(NUnit TestCases)
 
 **Unit Test Isolation Styles**:
 
