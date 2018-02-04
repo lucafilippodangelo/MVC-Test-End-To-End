@@ -47,22 +47,145 @@ In this test project I used "NUnit" + "moq", below a summary of main topics
       public class BankingSitedDb : DbContext
       {
         public BankingSitedDb() : base("name=CustomConnectionAutomatedTestingProject") {  }        
-
         public DbSet<LoanApplication> LoanApplications { get; set; }        
       }
       ```
 
-CONNECTION STRING
+- Connection String
 
       <add name="CustomConnectionAutomatedTestingProject" connectionString="Data Source=LUCA; Initial Catalog=DbAutomatedTestingProject; Integrated Security=False;User ID=sa;Password=Luca111q;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" providerName="System.Data.SqlClient" />
 
-DB NAME
-"DbAutomatedTestingProject"
+- DB Name "DbAutomatedTestingProject"
 
 1 - install entity framework from nuget
 2 - run "Enable-Migrations"
 3 - run "Add-Migration aName"
 4 - run "Update-Database"
+
+**Testing the MODEL**
+
+- Installation of the RUNNER "NUnit" 
+  - [TestFixture] - attribute for a class that contain tests. the test runner is able to recognize that.
+  - [Test] this attribute mark a public method as a test and the test runner know to execute that as a test.
+
+- INSTALL: "Tools" --> "Extensions and Updates" --> "Nunit Test Adapter"
+
+- Writing of some UT
+  - //LD STEP1
+  - add the project "BankingSite.UnitTest" and then in this project we have to install the testing framework "Nunit".
+
+- Writing unit test with CLASSIC collaborator (of a class)
+  - we are testing the behaviour of methods inside classes, to do that we have to create an instance of this class by a CLASSIC approach.
+  - //LD STEP3 it's when we pass in input a concrete instance, like we do with dependency injection 
+  - //LD STEP4 we create the test class: "LoanApplicationScorerTests" 
+  - //LD STEP5 and then we implement the example:
+
+- Writing unit test with MOCKIST STYLE collaborator (of a class)
+  - INSTALLATION of a MOCKING framework --> "Moq" by nuget package.
+  - //LD STEP6 let's see a first example
+  - //LD STEP7 here I create a fake instance to pass to "LoanApplicationScorer", but remember that I need to specify the "OBJECT":
+
+- Writing Integration Tests (where there is INTERACTION WITH DATABASE)
+  - we are creating a TEST for the INTERACTION WITH THE DATABASE by a repository class.
+  - //LD STEP8 I have a setting class "TestFixtureLifecycle"  where we do some setting each time we execute a test
+  - //LD STEP9 now I create the TEST class
+
+      
+**Testing Controllers**
+
+- Writing a controller test manually
+  - //LD STEP10 test of controller returning the default view
+  - //LD STEP11 
+  - //LD STEP12 Fluent MVC Testing
+  - //LD STEP13 test the redirection to a specific view under conditions
+
+
+## Running Tests on TeamCity Continuous Integration Server
+==========================================================
+
+-------------------------------------------------------------------------------------------------
+CONTINUOUS INTEGRATION
+-------------------------------------------------------------------------------------------------
+it's a dedicated server that build together all the code changes from different delelopers and run the tests in the build.
+So the steps are:
+- Compiles?
+- Tests Pass?
+- Code Metrics(for instance: unit tests coverage)
+- Feedback to the team
+
+At the end we will find bugs sooner.
+
+-------------------------------------------------------------------------------------------------
+TEAMCITY
+-------------------------------------------------------------------------------------------------
+it works with "C#"+"MSBuild"+"NUnit"+ Nuget code coverage tool
+
+The parts we have to have are:
+- "**Source Control**" local or git
+- dedicated "Teamcity Server" to run the team city service. 
+This service has to be connected with the "Source Control" and get the code.
+- the "**Team City Build Agent**" make the build
+
+the **Structure** of TeamCity is:
+
+      project(BankingSite Project)
+            A PROJECT HAS MANY -> 
+      Build Configuration(Unit Test) ->  Build Configuration(Integration Test)
+            EACH BUILD CONFIGURATION HAS MANY TEST STEP -> 
+      Step()
+
+-------------------------------------------------------------------------------------------------
+Build PIPELINES
+-------------------------------------------------------------------------------------------------
+DEFINITION: series of phases we want to happen when we check code.
+
+our pipeline in TeamCity will be:
+
+      project(BankingSite Project)
+            A PROJECT HAS MANY phases of"Build configuration" -> 
+            Phase One->  
+                  EACH BUILD CONFIGURATION HAS MANY TEST STEP -> 
+                  Build Solution
+                  Unit Test
+            Phase Two->  
+                  EACH BUILD CONFIGURATION HAS MANY TEST STEP -> 
+                  Integration Test
+
+-------------------------------------------------------------------------------------------------
+TEAMCITY SETUP - (phase one) CREATE TRIGGER TO MAKE A BUILD ONCE CODE COMMITTED
+https://app.pluralsight.com/player?course=automated-aspdotnet-mvc&author=jason-roberts&name=automated-aspdotnet-mvc-m6&clip=5&mode=live
+-------------------------------------------------------------------------------------------------
+1 - create the **project** in teamcity. 
+
+2 - Under the project we have to configure the **build configuration**. in this case I created the build configuration -> "Build Solution + Execute Unit Tests"
+
+3 - Then on the left menu I have to click in "version Control Settings" inside the build configuration -> "Build Solution After Code Committed (phase one)", I have to specify the "**Version Control Settings**", in this case I added one from GIT by using the url "https://github.com/lucafilippodangelo/MVC-Test-End-To-End"
+So now we can get our source code.
+
+4 - MIN 3:00. Then we have to add a STEP, on the left menu of this "phase one" click on "**Build Steps**". Here we have to specify the solution we want build, in this case "BankingSite.sln"
+
+4 - MIN 4:40.  Then we have to AUTOMATIZE,  on the left menu for the "phase one" we click on **triggers** in order to execute the build automatically without click on the RUN button.
+
+-------------------------------------------------------------------------------------------------
+TEAMCITY SETUP - (phase two) EXECUTE UNIT TESTS
+https://app.pluralsight.com/player?course=automated-aspdotnet-mvc&author=jason-roberts&name=automated-aspdotnet-mvc-m6&clip=6&mode=live
+
+https://app.pluralsight.com/player?course=automated-aspdotnet-mvc&author=jason-roberts&name=automated-aspdotnet-mvc-m6&clip=7&mode=live
+-------------------------------------------------------------------------------------------------
+we will create a new build configuration under the same project
+**there are images attached abiut the configuration**
+
++ we have to add a step for unit tests, remember that if I WANT RUN A BUILD AFTER THAT THE PREVIOUS IS FINICHED, I have to set in the left menu the **dependencies** -> "Add new snapshot dependency"
+
++ after I add a **trigger** -> "finish build trigger" -> and as build we specify the "phase one" 
+
++ so now if "phase one" run successfully, then "phase two" is trigged
+
+
+
+
+
+
 
 
 ## Some Sweet Theory 
